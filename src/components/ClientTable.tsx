@@ -2,6 +2,7 @@ import './ClientTable.css';
 import { IClient } from '../types/Types';
 import { Table as BootstrapTable } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from 'react-router-dom';
 
 interface TableProps {
     clients: IClient[];
@@ -10,11 +11,19 @@ interface TableProps {
     className?: string;
 }
 
+
+
 const ClientTable = ({ clients, deleteClient, editClient, className }: TableProps): JSX.Element => {
+    const navigate = useNavigate();
+
     console.log('Przekazane wydarzenia:', clients);
     if (!Array.isArray(clients) || clients.length === 0) {
         return <p>Brak danych do wyświetlenia</p>;
     }
+
+    const handleViewDetails = (clientId: string) => {
+        navigate(`/client/more/${clientId}`);
+    };
 
     return (
         <BootstrapTable striped bordered hover className={className}>
@@ -29,12 +38,11 @@ const ClientTable = ({ clients, deleteClient, editClient, className }: TableProp
                 {clients.map((client) => (
                     <tr key={client._id}>
                         <td>{client.name}</td>
-                        <td>{client.address.city}</td>
-                        
+                        <td>{client.address.city}</td>                   
                         <td>
                             <Button variant="danger" onClick={() => deleteClient(client._id!)}>Usuń</Button>
                             <Button variant="warning" onClick={() => editClient(client)}>Edytuj</Button>
-                            <Button variant="info" onClick={() => deleteClient(client._id!)}>Zobacz więcej</Button>
+                            <Button variant="info" onClick={() => handleViewDetails(client._id!)}>Zobacz więcej</Button>
                         </td>
                     </tr>
                 ))}

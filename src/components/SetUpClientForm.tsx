@@ -4,6 +4,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IClient } from '../types/Types';
 import config from '../config';
+import Form from 'react-bootstrap/Form';
 
 interface SetUpClientFormProps {
     getClients: () => void;
@@ -108,8 +109,8 @@ const SetUpClientForm = ({ getClients }: SetUpClientFormProps) => {
         <div className="formWrapper">
             <form action="#" onSubmit={validateForm}>
                 <div className="wrapper">
-                    <label htmlFor="name">Nazwa</label>
-                    <input
+                    <Form.Label htmlFor="name">Nazwa</Form.Label>
+                    <Form.Control
                         type="text"
                         id="name"
                         value={clientName}
@@ -117,8 +118,8 @@ const SetUpClientForm = ({ getClients }: SetUpClientFormProps) => {
                     />
                 </div>
                 <div className="wrapper">
-                    <label htmlFor="city">Miasto</label>
-                    <input
+                    <Form.Label htmlFor="city">Miasto</Form.Label>
+                    <Form.Control
                         type="text"
                         id="city"
                         value={clientCity}
@@ -126,8 +127,8 @@ const SetUpClientForm = ({ getClients }: SetUpClientFormProps) => {
                     />
                 </div>
                 <div className="wrapper">
-                    <label htmlFor="street">Ulica</label>
-                    <input
+                    <Form.Label htmlFor="street">Ulica</Form.Label>
+                    <Form.Control
                         type="text"
                         id="street"
                         value={clientStreet}
@@ -135,8 +136,8 @@ const SetUpClientForm = ({ getClients }: SetUpClientFormProps) => {
                     />
                 </div>
                 <div className="wrapper">
-                    <label htmlFor="nbr">Numer</label>
-                    <input
+                    <Form.Label htmlFor="nbr">Numer</Form.Label>
+                    <Form.Control
                         type="text"
                         id="nbr"
                         value={clientNbr}
@@ -144,8 +145,8 @@ const SetUpClientForm = ({ getClients }: SetUpClientFormProps) => {
                     />
                 </div>
                 <div className="wrapper">
-                    <label htmlFor="nip">NIP</label>
-                    <input
+                    <Form.Label htmlFor="nip">NIP</Form.Label>
+                    <Form.Control
                         type="text"
                         id="nip"
                         value={clientNip}
