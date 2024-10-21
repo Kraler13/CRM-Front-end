@@ -59,6 +59,7 @@ const SetUpClientForm = ({ getClients }: SetUpClientFormProps) => {
                 nbr: clientNbr
             },
             nip: clientNip,
+            actions: []
         };
 
         if (editingClient) {

@@ -1,8 +1,8 @@
 import { ChangeEvent } from "react";
 
 export interface SelectProps {
-  values: [string, string][]; // Tablica z parami [key, val]
-  selectedValue: string; // Przechowujemy string zamiast obiektu
+  values: [string, string][];
+  selectedValue: string; 
   onValuesChange: (e: ChangeEvent<HTMLSelectElement>) => void;
   id?: string;
 }
@@ -11,7 +11,7 @@ const Select = ({ values, selectedValue, onValuesChange, ...rest }: SelectProps)
   return (
     <select value={selectedValue} onChange={onValuesChange} {...rest}>
       {values.map(([value, text]) => (
-        <option key={value} value={value}>
+        <option key={value} value={value} selected={selectedValue === value} >
           {text}
         </option>
       ))}

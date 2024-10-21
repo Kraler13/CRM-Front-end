@@ -18,20 +18,22 @@ const MoreAboutClient = () => {
                 .get<IClient>(`${config.api.url}/clients/${clientId}`)
                 .then(res => {
                     setClient(res.data);
+                    setActions(res.data.actions)
                 })
                 .catch(() => {
                     navigate("/");
                 });
 
-            axios
-                .get<IAction[]>(`${config.api.url}/actions/${clientId}`)
-                .then(res => setActions(res.data))
-                .catch(err => console.error('Error fetching client actions:', err));
+
         }
     }, [clientId, navigate]);
 
     const handleViewDetails = (clientId: string, actionId: string) => {
         navigate(`/client/more/${clientId}/action/edit/${actionId}`);
+    };
+
+    const handleAddAction = (clientId: string) => {
+        navigate(`/client/more/${clientId}/action/add`);
     };
 
     return (
@@ -68,6 +70,11 @@ const MoreAboutClient = () => {
                                     {client && (
                                         <Button variant="warning" onClick={() => handleViewDetails(client._id!, action._id)}>Edytj</Button>
                                     )}
+                                    {client && (
+                                        <Button variant="primary" onClick={() => handleAddAction(client._id!)}>
+                                            Dodaj Akcję
+                                        </Button>
+                                    )}
                                 </td>
                             </tr>
                         ))}
@@ -76,9 +83,7 @@ const MoreAboutClient = () => {
             ) : (
                 <p>Brak akcji powiązanych z tym klientem</p>
             )}
-            <Button variant="primary">
-                Dodaj Klienta
-            </Button>
+
         </div>
     );
 };
