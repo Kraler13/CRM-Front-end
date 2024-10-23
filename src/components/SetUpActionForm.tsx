@@ -45,7 +45,7 @@ const SetUpActionForm = ({ getClients }: SetUpClientFormProps) => {
   useEffect(() => {
     if (editingAction) {
       setActionType(editingAction.type);
-      setActionDate(editingAction.date.split('T')[0]);
+      setActionDate(editingAction.date.split("T")[0]);
       setActionDescription(editingAction.description);
     }
   }, [editingAction]);
@@ -62,16 +62,16 @@ const SetUpActionForm = ({ getClients }: SetUpClientFormProps) => {
       return;
     }
 
-    const newAction: IAction = {
+    const newAction: Omit<IAction, '_id'> = {
       type: actionType,
       date: actionDate,
       description: actionDescription,
-      _id: editingAction ? editingAction._id : "",
+      /* _id: editingAction ? editingAction._id : "", */
       client: editingAction ? editingAction.client : "",
     };
 
     if (editingAction) {
-      saveAction(newAction);
+      saveAction({ ...newAction, _id: editingAction._id });
     } else {
       addAction(newAction);
     }
@@ -79,7 +79,7 @@ const SetUpActionForm = ({ getClients }: SetUpClientFormProps) => {
     return true;
   };
 
-  const addAction = (actionObj: IAction) => {
+  const addAction = (actionObj: Omit<IAction, '_id'>) => {
     axios
       .post(`${config.api.url}/actions/add`, {
         ...actionObj,

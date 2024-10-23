@@ -17,6 +17,8 @@ export interface IAction {
   description: string;
   client: string;
 }
+
+export type ActionWithoutId = Omit<IAction, "_id">
 export interface IClientsResponse {
   clients: IClient[];
 }
