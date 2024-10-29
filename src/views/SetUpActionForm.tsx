@@ -1,11 +1,12 @@
-import "./SetUpClientForm.css";
+import "./SetUpActionForm.css";
 import axios from "axios";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IAction } from "../types/Types";
 import config from "../config";
 import Form from "react-bootstrap/Form";
-import Select from "./Select";
+import Select from "../components/Select";
+import { Button } from "react-bootstrap";
 
 interface SetUpClientFormProps {
   getClients: () => void;
@@ -66,7 +67,6 @@ const SetUpActionForm = ({ getClients }: SetUpClientFormProps) => {
       type: actionType,
       date: actionDate,
       description: actionDescription,
-      /* _id: editingAction ? editingAction._id : "", */
       client: editingAction ? editingAction.client : "",
     };
 
@@ -151,9 +151,11 @@ const SetUpActionForm = ({ getClients }: SetUpClientFormProps) => {
         </div>
 
         <div className="wrapper">
-          <button type="submit">
+        <Button variant="primary" type="submit">{editingAction ? "Zaktualizuj Akcję" : "Dodaj Akcję"}</Button>
+
+          {/* <button type="submit">
             {editingAction ? "Zaktualizuj Akcję" : "Dodaj Akcję"}
-          </button>
+          </button> */}
         </div>
       </form>
     </div>

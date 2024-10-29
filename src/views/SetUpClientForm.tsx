@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { IClient } from '../types/Types';
 import config from '../config';
 import Form from 'react-bootstrap/Form';
+import { Button } from 'react-bootstrap';
 
 interface SetUpClientFormProps {
     getClients: () => void;
@@ -155,8 +156,10 @@ const SetUpClientForm = ({ getClients }: SetUpClientFormProps) => {
                     />
                 </div>
                 <div className="wrapper">
-                    <button type="submit">{editingClient ? "Zaktualizuj klienta" : "Dodaj klienta"}</button>
-                </div>
+                <Button variant="primary" type="submit">{editingClient ? "Zaktualizuj klienta" : "Dodaj klienta"}</Button>
+
+{/*                     <button type="submit">{editingClient ? "Zaktualizuj klienta" : "Dodaj klienta"}</button>
+ */}                </div>
             </form>
         </div>
     );

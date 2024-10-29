@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import config from '../config';
+import { useNavigate } from 'react-router-dom';
+import { Button, FloatingLabel, Form } from 'react-bootstrap';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,16 +21,60 @@ const SignUp = () => {
     }
 
     try {
-      const response = await axios.post('/api/signup', { email, password });
+      const response = await axios.post(`${config.api.url}/auth/signup`, {
+        email,
+        password,
+      });
       console.log('User signed up:', response.data);
       alert('Registration successful!');
+      navigate('/login');
     } catch (err) {
       setError('An error occurred during registration');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
+    <Form onSubmit={handleSubmit}>
+      <h2>Sign Up</h2>
+      <FloatingLabel
+        controlId="floatingInput"
+        label="Email address"
+        className="mb-3"
+      >
+        <Form.Control
+          type="email"
+          placeholder="name@example.com"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </FloatingLabel>
+
+      <FloatingLabel controlId="floatingPassword" label="Password">
+        <Form.Control
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </FloatingLabel>
+
+      <FloatingLabel controlId="floatingPassword" label="Confirm Password">
+        <Form.Control
+          type="password"
+          placeholder="Confirm Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </FloatingLabel>
+      
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <Button variant="primary" type="submit">Sign Up</Button>
+    </Form>
+    {/* <form onSubmit={handleSubmit}>
       <h2>Sign Up</h2>
       <label>Email:</label>
       <input 
@@ -51,7 +99,8 @@ const SignUp = () => {
       />
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <button type="submit">Sign Up</button>
-    </form>
+    </form> */}
+    </div>
   );
 };
 

@@ -6,9 +6,11 @@ import AppRoutes from './routers/AppRoutes';
 import { BrowserRouter } from 'react-router-dom';
 import { IClient, IClientsResponse } from './types/Types';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   const [clients, setClients] = useState<IClient[]>([]);
+  
   const getClients = async () => {
     try {
       const res = await axios.get<IClientsResponse>(`${config.api.url}/clients`);
@@ -24,14 +26,16 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <AppRoutes
-          clients={clients}
-          getClients={getClients}
-        />
-      </div>
-    </BrowserRouter>
+    <AuthProvider> {/* Otocz aplikację AuthProvider */}
+      <BrowserRouter>
+        <div className="App">
+          <AppRoutes
+            clients={clients}
+            getClients={getClients}
+          />
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
